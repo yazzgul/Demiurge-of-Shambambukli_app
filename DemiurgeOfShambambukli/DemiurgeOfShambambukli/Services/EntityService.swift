@@ -22,24 +22,35 @@ class EntityService {
     ]
 
     func saveEntity(entity: Entity) {
-        lock.lock()
         if !entities.contains(where: { $0.id == entity.id }) {
             entities.append(entity)
         }
-        lock.unlock()
     }
+
+//    func saveEntity(entity: Entity) {
+//        lock.lock()
+//        if !entities.contains(where: { $0.id == entity.id }) {
+//            entities.append(entity)
+//        }
+//        lock.unlock()
+//    }
     func removeEntity(at index: Int) {
         lock.lock()
         entities.remove(at: index)
         lock.unlock()
     }
     func removeEntity(with entity: Entity) {
-        lock.lock()
         if let index = entities.firstIndex(of: entity) {
             entities.remove(at: index)
         }
-        lock.unlock()
     }
+//    func removeEntity(with entity: Entity) {
+//        lock.lock()
+//        if let index = entities.firstIndex(of: entity) {
+//            entities.remove(at: index)
+//        }
+//        lock.unlock()
+//    }
     func getEntity(at index: Int) -> Entity {
         return entities[index]
     }

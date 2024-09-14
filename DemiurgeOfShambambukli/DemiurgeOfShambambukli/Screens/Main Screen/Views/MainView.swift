@@ -37,7 +37,7 @@ class MainView: UIView {
         button.backgroundColor = .white
         button.setTitle("Сотворить", for: .normal)
         button.setTitleColor(.purple, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .heavy)
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
 

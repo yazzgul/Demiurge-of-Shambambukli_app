@@ -31,7 +31,7 @@ class MainTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = ""
         label.numberOfLines = .zero
-        label.font = .systemFont(ofSize: 16, weight: .heavy, width: .condensed)
+        label.font = .systemFont(ofSize: 16, weight: .medium, width: .condensed)
         label.textColor = .black
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -82,13 +82,13 @@ extension MainTableViewCell {
             entityNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 28),
             entityNameLabel.leadingAnchor.constraint(equalTo: entityImageView.trailingAnchor, constant: 16),
             entityNameLabel.widthAnchor.constraint(equalToConstant: 100.0),
-            entityNameLabel.heightAnchor.constraint(equalToConstant: 16.0),
+            entityNameLabel.heightAnchor.constraint(equalToConstant: 20.0),
 
             //  установка constraint для описания сущности entityDescriptionLabel
-            entityDescriptionLabel.topAnchor.constraint(equalTo: entityNameLabel.bottomAnchor, constant: 16),
+            entityDescriptionLabel.topAnchor.constraint(equalTo: entityNameLabel.bottomAnchor, constant: 8),
             entityDescriptionLabel.leadingAnchor.constraint(equalTo: entityImageView.trailingAnchor, constant: 16),
-            entityDescriptionLabel.widthAnchor.constraint(equalToConstant: 100.0),
-            entityDescriptionLabel.heightAnchor.constraint(equalToConstant: 16.0)
+            entityDescriptionLabel.widthAnchor.constraint(equalToConstant: 200.0),
+            entityDescriptionLabel.heightAnchor.constraint(equalToConstant: 20.0)
 
 //            entityImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -64),
 

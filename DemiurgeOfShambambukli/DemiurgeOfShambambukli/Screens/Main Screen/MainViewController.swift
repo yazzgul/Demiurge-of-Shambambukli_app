@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 class MainViewController: UIViewController {
 
     private let contentView: MainView = .init()
     private let viewModel: MainViewModel
+
+    private var cancellables = Set<AnyCancellable>()
 
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
@@ -32,14 +35,38 @@ class MainViewController: UIViewController {
         contentView.setupDataSource(self)
         contentView.setupDelegate(self)
 
+        updateEntitiesOnTable()
+        checkDeadStateEntities()
+
     }
 
 }
+extension MainViewController {
+    func updateEntitiesOnTable() {
+        viewModel.entitiesPublisher
+            .sink { [weak self] _ in
+                self?.contentView.reloadData()
+            }
+            .store(in: &cancellables)
+    }
+    func checkDeadStateEntities() {
+        viewModel.$deadStateEntityCount
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] count in
+                if count > 2 {
+                    self?.viewModel.killLivingEntityByDeadStateEntities()
+                }
+            }
+            .store(in: &cancellables)
+    }
+}
 extension MainViewController: EntityCreationButtonMainViewDelegate {
     func entityCreationButtonDidPressed() {
-        print("button did pressed")
+        let lifeState = viewModel.getRandomEntityLifeState()
+        let entity = viewModel.createNewEntity(with: lifeState)
+        
+//        print("button did pressed, new entity: \(entity)")
     }
-
 }
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,6 +76,5 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         viewModel.configureCell(tableView, cellForRowAt: indexPath)
     }
-    
-
 }
+
