@@ -12,7 +12,6 @@ protocol EntityCreationButtonMainViewDelegate: AnyObject {
 }
 
 class MainView: UIView {
-
     private lazy var gameNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Клеточное наполнение"
@@ -23,12 +22,26 @@ class MainView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    private lazy var startGameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Начни творить!"
+        label.numberOfLines = .zero
+        label.font = .systemFont(ofSize: 16, weight: .heavy, width: .condensed)
+        label.textColor = .purple
+        label.textAlignment = .center
+        label.isHidden = false
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     private lazy var gameTableView: UITableView = {
         let table = UITableView()
         table.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.reuseIdentifier)
         table.backgroundColor = .white
         table.rowHeight = 100
-        table.showsVerticalScrollIndicator = false
+//        table.showsVerticalScrollIndicator = false
+        table.layer.cornerRadius = 16
+        table.separatorColor = UIColor.purple
+
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -69,6 +82,7 @@ extension MainView {
     private func configureView() {
         addSubview(gameNameLabel)
         addSubview(gameTableView)
+        addSubview(startGameLabel)
         addSubview(entityCreationButton)
 
         NSLayoutConstraint.activate([
@@ -94,11 +108,16 @@ extension MainView {
             gameTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -24),
             gameTableView.bottomAnchor.constraint(equalTo: entityCreationButton.topAnchor, constant: -24),
 
+            //  установка constraint для надписи "Начни творить!" startGameLabel
+            startGameLabel.centerXAnchor.constraint(equalTo: gameTableView.centerXAnchor),
+            startGameLabel.centerYAnchor.constraint(equalTo: gameTableView.centerYAnchor),
+            startGameLabel.widthAnchor.constraint(equalToConstant: 112.0),
+            startGameLabel.heightAnchor.constraint(equalToConstant: 24.0)
         ])
     }
 
 }
-// Функции таблицы
+//  функции для управления таблицей
 extension MainView {
     func setupDataSource(_ dataSource: UITableViewDataSource) {
         gameTableView.dataSource = dataSource
@@ -108,5 +127,10 @@ extension MainView {
     }
     func reloadData() {
         gameTableView.reloadData()
+    }
+}
+extension MainView {
+    func startGameLabelIsHidden(isHidden: Bool) {
+        startGameLabel.isHidden = isHidden
     }
 }

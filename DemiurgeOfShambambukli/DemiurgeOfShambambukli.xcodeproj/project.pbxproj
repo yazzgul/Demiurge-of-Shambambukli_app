@@ -64,13 +64,12 @@
 		28A6FD402C95B91D00462C48 /* DemiurgeOfShambambukli */ = {
 			isa = PBXGroup;
 			children = (
+				28A6FD4F2C95B91F00462C48 /* Info.plist */,
+				28A6FD6F2C968D4D00462C48 /* Support */,
 				28A6FD552C95BADA00462C48 /* App Life */,
 				28A6FD6C2C95F08A00462C48 /* Services */,
 				28A6FD682C95E02100462C48 /* Models */,
 				28A6FD692C95E03000462C48 /* Screens */,
-				28A6FD4A2C95B91F00462C48 /* Assets.xcassets */,
-				28A6FD4C2C95B91F00462C48 /* LaunchScreen.storyboard */,
-				28A6FD4F2C95B91F00462C48 /* Info.plist */,
 			);
 			path = DemiurgeOfShambambukli;
 			sourceTree = "<group>";
@@ -125,6 +124,15 @@
 				28A6FD6D2C95F0A800462C48 /* EntityService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		28A6FD6F2C968D4D00462C48 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				28A6FD4C2C95B91F00462C48 /* LaunchScreen.storyboard */,
+				28A6FD4A2C95B91F00462C48 /* Assets.xcassets */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

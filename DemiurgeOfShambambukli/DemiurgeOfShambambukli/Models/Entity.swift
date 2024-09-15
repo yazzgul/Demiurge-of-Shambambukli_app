@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+//  структура сущности (сущность это клетка)
 struct Entity: Hashable, Identifiable, Equatable {
     var id: UUID = UUID()
     var name: String
@@ -18,7 +18,7 @@ struct Entity: Hashable, Identifiable, Equatable {
     }
 
 }
-
+//  состоянии
 enum LifeState: String {
     case dead = "Мёртвая"
     case alive = "Живая"

@@ -9,7 +9,6 @@ import UIKit
 import Combine
 
 class MainViewController: UIViewController {
-
     private let contentView: MainView = .init()
     private let viewModel: MainViewModel
 
@@ -37,18 +36,27 @@ class MainViewController: UIViewController {
 
         updateEntitiesOnTable()
         checkDeadStateEntities()
-
+        checkAliveStateEntities()
     }
 
 }
 extension MainViewController {
+//  функция, проверяющая изменения в массиве Entity в EntityService
     func updateEntitiesOnTable() {
         viewModel.entitiesPublisher
-            .sink { [weak self] _ in
+            .sink { [weak self] entities in
+                if let empty = self?.viewModel.entitiesAreEmptyArray() {
+                    if empty {
+                        self?.contentView.startGameLabelIsHidden(isHidden: false)
+                    } else {
+                        self?.contentView.startGameLabelIsHidden(isHidden: true)
+                    }
+                }
                 self?.contentView.reloadData()
             }
             .store(in: &cancellables)
     }
+//  функция, следящая за счетчиком deadStateEntityCount
     func checkDeadStateEntities() {
         viewModel.$deadStateEntityCount
             .receive(on: DispatchQueue.main)
@@ -59,20 +67,29 @@ extension MainViewController {
             }
             .store(in: &cancellables)
     }
+//  функция, следящая за счетчиком aliveStateEntityCount
+    func checkAliveStateEntities() {
+        viewModel.$aliveStateEntityCount
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] count in
+                if count > 2 {
+                    self?.viewModel.createLivingEntity()
+                }
+            }
+            .store(in: &cancellables)
+    }
 }
+//  реализация функции делегата EntityCreationButtonMainViewDelegate
 extension MainViewController: EntityCreationButtonMainViewDelegate {
     func entityCreationButtonDidPressed() {
         let lifeState = viewModel.getRandomEntityLifeState()
-        let entity = viewModel.createNewEntity(with: lifeState)
-        
-//        print("button did pressed, new entity: \(entity)")
+        viewModel.createNewEntity(with: lifeState)
     }
 }
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.numberOfRowsInSection()
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         viewModel.configureCell(tableView, cellForRowAt: indexPath)
     }

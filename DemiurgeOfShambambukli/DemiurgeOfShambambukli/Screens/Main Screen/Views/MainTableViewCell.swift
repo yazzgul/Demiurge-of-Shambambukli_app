@@ -49,14 +49,11 @@ class MainTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -89,9 +86,6 @@ extension MainTableViewCell {
             entityDescriptionLabel.leadingAnchor.constraint(equalTo: entityImageView.trailingAnchor, constant: 16),
             entityDescriptionLabel.widthAnchor.constraint(equalToConstant: 200.0),
             entityDescriptionLabel.heightAnchor.constraint(equalToConstant: 20.0)
-
-//            entityImageView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -64),
-
         ])
     }
 
