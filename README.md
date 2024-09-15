@@ -1,1 +1,4 @@
-# Demiurge-of-Shambambukli_app
+# DemiurgeofShambambukli
+
+
+Приложение для демиурга Шамбамбукли
